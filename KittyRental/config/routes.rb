@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :users, only: [:create, :new] # Day 2
+  resources :session, only: [:new, :create, :destroy] # Day 2
+
   resources :cats
 
   resources :cat_rental_requests, only: [:create, :new]

@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   validates :username, :session_token, presence: true, uniqueness: true
   validates :password_digest, presence: { message: "Password can't be blank" }
   validates :password, length: { minimum: 6, allow_nil: true }
-
+  after_initialize :ensure_session_token
   attr_reader :password
 
 
@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
 
   def find_by_credentials(username, password)
     user = User.find_by(username: username)
+    return nil if user.nil?
     return user if user && user.is_password?(password) ? user : nil
   end
 
