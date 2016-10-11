@@ -1,0 +1,42 @@
+<html>
+
+<body background="http://24.media.tumblr.com/8210fd413c5ce209678ef82d65731443/tumblr_mjphnqLpNy1s5jjtzo1_400.gif">
+  <%= render "errors" %>
+  <%= link_to "<< Back to all cats", cats_url %>
+
+<center><h2>Rental Request Form</h2>
+  <form action="<%= cat_rental_requests_url %>" method="post">
+
+<!-- CHOOSE CAT -->
+  <label for="cat_selection">Select cat:</label>
+  <select name="cat_rental_request[cat_id]" id="cat_selection">
+      <option>Select cat</option>
+    <% Cat.all.each do |cat| %>
+      <option value="<%= cat.id %>"><%= cat.name %></option>
+          <% end %>
+  </select>
+  <br>
+<!-- CHOOSE START AND END DATE -->
+  Select the time period you would like to rent this cat:
+<br>
+  <label for="rental_start_date">Start date:</label>
+  <input type="date" name="cat_rental_request[start_date]" id="rental_start_date">
+<br>
+  <label for="rental_end_date">End date:</label>
+  <input type="date" name="cat_rental_request[end_date]" id="rental_end_date">
+<br>
+<input type="submit" value="SUBMIT RENTAL REQUEST">
+</form></center>
+
+</body>
+</html>
+<!--
+
+
+
+Add a create action, of course.
+Edit the cat show page to show existing requests
+
+Just show the start, end dates.
+
+Use order to sort them by start_date -->

@@ -1,0 +1,23 @@
+<html>
+  <body background="http://data.whicdn.com/images/225089317/large.gif">>
+
+  <style>
+    li{ list-style-type: none;
+      }
+  </style>
+  <title>99 Cats - for all your cat renting needs</title>
+
+  <center><h1 style="color:purple;">99 Cats - Book Your Favorite Cat 2Day!</h1></center>
+
+  <nav>
+  <center><h2 style="color:purple">🐱 Available Cats 🐱</h2>
+  <ul><% @cats.each do |cat| %>
+    <li><%= link_to "#{cat.name}", cat_url(cat) %></li>
+        <% end %>
+  </ul>
+  </center>
+  </nav>
+  <br>
+  <center><%= link_to "➕ Add Cat!", new_cat_url %></center>
+</body>
+</html>
