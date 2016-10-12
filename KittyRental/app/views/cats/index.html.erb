@@ -1,5 +1,4 @@
 <html>
-  <body background="http://orig03.deviantart.net/98de/f/2014/139/7/4/cat_tile_by_genicecream-d7iwvfi.png">>
 
   <style>
     li{ list-style-type: none;
@@ -11,10 +10,15 @@
 
   <nav>
   <center><h2 style="color:purple">🐱 Available Cats 🐱</h2>
-  <ul><% @cats.each do |cat| %>
-    <li><%= link_to "#{cat.name}", cat_url(cat) %></li>
+
+    <center><table cellpadding="15">
+        <ul><% @cats.each do |cat| %>
+<tr>
+  <td><li><%= link_to "#{cat.name}", cat_url(cat) %></li></td>
+      </tr>
         <% end %>
-  </ul>
+  </ul></table>
+
   </center>
   </nav>
   <br>

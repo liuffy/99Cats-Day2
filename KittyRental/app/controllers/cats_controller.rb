@@ -1,5 +1,5 @@
 class CatsController < ApplicationController
-  #[:index, :show, :create, :update, :destroy, :edit]
+  before_action :validate_owner, only: [:edit, :update]
 
   def index #good
     @cats = Cat.all #Instance variables set in the controller will be made available to the view template (specified with render)
@@ -18,6 +18,7 @@ class CatsController < ApplicationController
 
   def create
     @cat = Cat.new(cat_params)
+    @cat.user_id = current_user.id
 
     if @cat.save
       redirect_to cat_url(@cat) #cat_url is a routing helper method
@@ -27,8 +28,9 @@ class CatsController < ApplicationController
     end
   end
 
-  def update
-    @cat = Cat.find(params[:id])
+  def update # searches only among the current_user's cats with the User#cats association
+
+    (params[:id])
 
     if @cat.update(cat_params)
       redirect_to cat_url(@cat) #cat_url is a routing helper method
@@ -39,7 +41,7 @@ class CatsController < ApplicationController
   end
 
   def edit
-    @cat = Cat.find(params[:id])
+    @cat = current_user.cats.find(params[:id])
     render :edit #edit.html.erb
   end
 
@@ -49,8 +51,16 @@ class CatsController < ApplicationController
     redirect_to cats_url # routing helper method for building url with all cats
   end
 
+  def validate_owner
+    unless @cat.owner == current_user
+    flash[:errors] = ["You can't edit someone else's cat!"]
+    redirect_to cats_url
+    end
+  end
+
   private
   def cat_params #good
     params.require(:cat).permit(:birth_date, :name, :sex, :color, :description)
   end
+
 end

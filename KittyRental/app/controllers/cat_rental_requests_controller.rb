@@ -1,6 +1,8 @@
 class CatRentalRequestsController < ApplicationController
 
-  def approve 
+  before_action :validate_owner, only: [:approve, :destroy]
+
+  def approve
     current_cat_rental_request.approve!
     redirect_to cat_url(current_cat)
   end
@@ -13,6 +15,7 @@ class CatRentalRequestsController < ApplicationController
 
   def create
     @rental_request = CatRentalRequest.new(request_params)
+    @rental_request.user_id = current_user.id
     if @rental_request.save
       redirect_to cat_url(@rental_request.cat)
     else
@@ -26,10 +29,20 @@ class CatRentalRequestsController < ApplicationController
     @rental_request = CatRentalRequest.new
   end
 
+
+
+  def validate_owner
+    cat = current_cat
+
+    unless cat.owner == current_user
+    flash[:errors] = ["You can't approve requests for someone else's cat!"]
+    redirect_to cats_url
+    end
+  end
+
   private
   def current_cat_rental_request
-    @rental_request ||=
-      CatRentalRequest.includes(:cat).find(params[:id])
+    @rental_request ||=  CatRentalRequest.includes(:cat).find(params[:id])
   end
 
   def current_cat

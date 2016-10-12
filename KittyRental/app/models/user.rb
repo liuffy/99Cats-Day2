@@ -5,6 +5,9 @@ class User < ActiveRecord::Base
   after_initialize :ensure_session_token
   attr_reader :password
 
+  has_many :cats
+  has_many :cat_rental_requests
+
 
   def self.reset_session_token!
     self.session_token = User.generate_session_token
@@ -26,7 +29,7 @@ class User < ActiveRecord::Base
   end
 
 
-  def find_by_credentials(username, password)
+  def self.find_by_credentials(username, password)
     user = User.find_by(username: username)
     return nil if user.nil?
     return user if user && user.is_password?(password) ? user : nil

@@ -1,11 +1,11 @@
 <html>
 
-<body background="http://24.media.tumblr.com/8210fd413c5ce209678ef82d65731443/tumblr_mjphnqLpNy1s5jjtzo1_400.gif">
   <%= render "shared/errors" %>
   <%= link_to "<< Back to all cats", cats_url %>
 
 <center><h2>Rental Request Form</h2>
   <form action="<%= cat_rental_requests_url %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 
 <!-- CHOOSE CAT -->
   <label for="cat_selection">Select cat:</label>

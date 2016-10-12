@@ -5,9 +5,25 @@ Show a login or logout button, depending on whether a user is signed in. -->
 <html>
 <head>
   <title>Kitty Rental</title>
+
+  <style type="text/css">
+  body{
+    font-family: Georgia, Times, serif;}
+    h1, h2, h3, h4{
+      font-family: Arial, Verdana, sans-serif;}
+  </style>
+
+  <style>
+  table, th, td {
+      border: 1px solid brown;
+      border-collapse: collapse;
+    background-color: #fdf8e7}
+  </style>
+
 </head>
-<body align="right">
   <%= render 'shared/errors' %>
+<body align="center">
+
     <body background="http://orig03.deviantart.net/98de/f/2014/139/7/4/cat_tile_by_genicecream-d7iwvfi.png">
 
   <% if current_user.nil? %>
@@ -16,6 +32,8 @@ Show a login or logout button, depending on whether a user is signed in. -->
    <!--  new_session GET  ->  /session/new -->
   <% else %>
     Welcome back, <%= current_user.username %>
+    <br>
+    <img src="https://media.giphy.com/media/ea74cjF0jieXu/giphy.gif" width="30" height="auto">
     <%= button_to "Log out", session_url, method: :delete %>
     <!--  session_url -> DELETE /session/:id  -->
   <% end %>
