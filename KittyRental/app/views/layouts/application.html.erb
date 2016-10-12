@@ -1,10 +1,24 @@
 <!DOCTYPE html>
+<!-- Edit the application.html.erb layout and create a header at the top:
+Show the username if the user is signed in.
+Show a login or logout button, depending on whether a user is signed in. -->
 <html>
 <head>
-  <title>KittyRental</title>
-  <%= csrf_meta_tags %>
+  <title>Kitty Rental</title>
 </head>
-<body>
+<body align="right">
+  <%= render 'shared/errors' %>
+    <body background="http://orig03.deviantart.net/98de/f/2014/139/7/4/cat_tile_by_genicecream-d7iwvfi.png">
+
+  <% if current_user.nil? %>
+   <%= button_to "Log in", new_session_url, method: :get %>
+   <%= button_to "Sign up", new_user_url, method: :get %>
+   <!--  new_session GET  ->  /session/new -->
+  <% else %>
+    Welcome back, <%= current_user.username %>
+    <%= button_to "Log out", session_url, method: :delete %>
+    <!--  session_url -> DELETE /session/:id  -->
+  <% end %>
 
 <%= yield %>
 

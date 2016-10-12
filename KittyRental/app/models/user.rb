@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
     self.session_token
   end
 
+  def self.generate_session_token
+    SecureRandom::urlsafe_base64(16)
+  end
+
   def password=(password)
     @password = password
     self.password_digest = BCrypt::Password.create(password)

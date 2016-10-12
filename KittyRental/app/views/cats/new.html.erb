@@ -2,6 +2,6 @@
 <%= link_to "<< Back to all cats", cats_url %>
   <body style="background-color:#f0e6ff;">
 <center><h1 style="color:purple;">Create new cat</h1></center>
-    <%= render "errors" %>
+    <%= render "shared/errors" %>
   <%= render "form", cat: @cat %>
 </body>
